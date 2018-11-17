@@ -1,6 +1,5 @@
-# RobootIPTV
+# [Roboot](http://www.roboot.com.br) RobootIPTV
 * Projeto Criando meu próprio Servidor IPTV usando apenas python :) 
-* www.roboot.com.br
 
 ## O que ja esta feito
 
