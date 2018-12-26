@@ -1,0 +1,6 @@
+*.txt
+*.mp4
+*.ini
+*.m3u
+__pycache__
+*.pyc

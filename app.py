@@ -1,13 +1,15 @@
+import sys
 import os
-aprovados = [".mp4"]
-ip = "http://192.168.0.9:8001/"
+import json
+from httproboot import server
+
 def lista(nPath, aprovados, ip):
     listaSaida = []
     for path, f, arquivo in os.walk(nPath):
         folder = path.split("\\")[-1]
+
         for a in arquivo:
             nome = a[0:-4]
-            #print("{}\{} - {} - {}".format(path,a,nome,folder))
             extensao = a[-4:]
             if extensao in aprovados:
                 caminho = ip+folder+"/"+a
@@ -27,14 +29,30 @@ def inicializa(arquivo):
 
 def preenche_locais(arquivo, lista):
     for L in lista:
-        #print(L['caminho'])
         t = open(arquivo, "a")
         t.write('#EXTINF:-1 tvg-id="" tvg-logo="" group-title="{}",{}\n'.format(L['pasta'],L['nome']))
         t.write(L['caminho'])
         t.write('\n\n')
 
+def main(config):
+    ip = config['address']['ip']
+    port = config['address']['port']
+    file = config['file']
+    path = config['path']
+    type = config['type']
+    address = ip + ':' + str(port)
+    ip = "http://" + address + "/"
+    print(path,type,ip)
+    Lista = lista(path, type, ip)
+    inicializa(file)
+    preenche_locais(file,Lista)
+
+
 if __name__ == "__main__":
-    arquivo="RobootTV.m3u"
-    Lista = lista('D:\\RobootTV', aprovados, ip)
-    inicializa(arquivo)
-    preenche_locais(arquivo,Lista)
+    with open("config.json", "r") as f:
+        config = json.loads(f.read())
+
+    port = config['address']['port']
+    main(config)
+    server(port)
+    input("...")

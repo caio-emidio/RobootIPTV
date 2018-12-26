@@ -1,0 +1,9 @@
+{
+   "address": {
+        "ip": "192.168.0.25",
+        "port": 8001
+    },
+    "file": "RobootTV.m3u",
+    "path": "D:\\RobootTV",
+    "type": [".mp4"]
+}
